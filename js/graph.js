@@ -7,20 +7,20 @@ function plotStates(data) {
     for (var i = 0; i < data.length; i++) {
         row = data[i];
         if (row['state'] == 'WA') {
-            date.push(row['date']);
+            date.push(row['date'] % 10000);
             positive.push(row['positive']);
             death.push(row['death']);
         }
     }
 
     var data = [
-        {name: 'Positive Cases', x:date, y:positive}, 
-        {name: 'Total Deaths', x:date, y:death}
+        {name: 'Positive Cases: WA', x:date, y:positive}, 
+        {name: 'Total Deaths: WA', x:date, y:death}
     ];
     var layout = {
         title: 'COVID is bad',
         xaxis: {
-            title: 'Date'
+            title: 'Date (month-day)'
         }
     };
 
