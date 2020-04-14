@@ -23,11 +23,26 @@ Plotly.d3.csv('https://covidtracking.com/api/states/daily.csv', function(data) {
 		{displayModeBar: false}
 	);
 
+	Plotly.newPlot(
+		'wany',
+		[
+			{name:'WA', x: wa[0], y: wa[1], line: {color: 'green'}},
+			{name:'NY', x: wa[0], y: ny[1], line: {color: 'blue'}}
+		],
+		{
+			title:'WA vs NY: Positive Cases',
+			legend:{x:0.02,y:1.00},
+			xaxis:{title:'Date (month-day)'},
+			yaxis:{title:'Positive Cases'}
+		},
+		{displayModeBar: false}
+	);
+
 	for (i = 0; i < wa[1].length; i++) wa[1][i] /= 76148.93;
 	for (i = 0; i < ny[1].length; i++) ny[1][i] /= 194535.61;
 
 	Plotly.newPlot(
-		'wany',
+		'wanycapita',
 		[
 			{name:'WA', x: wa[0], y: wa[1], line: {color: 'green'}},
 			{name:'NY', x: wa[0], y: ny[1], line: {color: 'blue'}}
@@ -40,6 +55,38 @@ Plotly.d3.csv('https://covidtracking.com/api/states/daily.csv', function(data) {
 		},
 		{displayModeBar: false}
 	);
+
+	// var frames = [], steps = [];
+	// Plotly.newPlot(
+	// 	'usa',
+	// 	[{
+	// 		type:'chloropleth',
+	// 		locationmode:'USA-states',
+	// 		locations:,
+	// 		z:,
+	// 		text:,
+	// 		zmin:0,
+	// 		zmax:125000
+	// 	}],
+	// 	{
+	// 		title:'Spread of COVID-19',
+	// 		geo: {
+	// 			scope:'usa',
+	// 			showlakes:true,
+	// 			lakecolor:'white'
+	// 		},
+	// 		sliders: [{
+	// 			steps: steps, // var
+	// 			currentvalue: {
+	// 				visible:true,
+	// 				prefix: 'Date: ',
+	// 				xanchor: 'right',
+	// 				font: {size:20,color:'#666'}
+	// 			},
+	// 			transition: {duration:300, easing:'cubic-in-out'}
+	// 		}]
+	// 	}
+	// ).then(function() {Plotly.addFrames('usa', frames);});
 });
 
 function state(data, state) {
@@ -65,3 +112,94 @@ function state(data, state) {
 	total = [date, pos, neg, dead, hos, icu, rec];
 	return total;
 }
+
+// Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv', function(rows) {
+// 	function unpack(rows, key) {
+// 		return rows.map(function(row) { return row[key]; });
+// 	}
+
+// 	Plotly.newPlot(
+// 		'exampleOne',
+// 		[{
+// 			type: 'choropleth',
+// 			locationmode: 'USA-states',
+// 			locations: unpack(rows, 'code'),
+// 			z: unpack(rows, 'total exports'),
+// 			text: unpack(rows, 'state'),
+// 			zmin: 0,
+// 			zmax: 17000
+// 		}],
+// 		{
+// 			title: '2011 US Agriculture Exports by State',
+// 			geo: {
+// 				scope: 'usa',
+// 				showlakes: true,
+// 				lakecolor: 'rgb(255,255,255)'
+// 			}
+// 		},
+// 		{showLink: false}
+// 	);
+// });
+
+
+// Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv', function(err, rows){
+// 	function filter_and_unpack(rows, key, year) {
+// 		return rows.filter(row => row['year'] == year).map(row => row[key])
+// 	}
+
+// 	var frames = [], steps = [];
+// 	var num = 1952;
+// 	for (i = 0; i <= 11; i++) {
+// 		var z = filter_and_unpack(rows, 'lifeExp', num);
+// 		var locations = filter_and_unpack(rows, 'iso_alpha', num);
+// 		frames[i] = {data: [{z: z, locations: locations, text: locations}], name: num};
+// 		steps.push ({
+// 			label: num.toString(),
+// 			method: 'animate',
+// 			args: [
+// 				[num], {
+// 					mode: 'immediate',
+// 					transition: {duration: 300},
+// 					frame: {duration: 300}
+// 				}
+// 			]
+// 		});
+// 		num += 5;
+// 	}
+
+// 	Plotly.newPlot(
+// 		'exampleTwo',
+// 		[{
+// 			type: 'choropleth',
+// 			locationmode: 'world',
+// 			locations: frames[0].data[0].locations,
+// 			z: frames[0].data[0].z,
+// 			text: frames[0].data[0].locations,
+// 			zauto: false,
+// 			zmin: 30,
+// 			zmax: 90
+// 		}],
+// 		{
+// 			title: 'World Life Expectency<br>1952 - 2007',
+// 			geo:{
+// 				scope: 'world',
+// 				countrycolor: 'white',
+// 				showland: true,
+// 				landcolor: 'rgb(217, 217, 217)',
+// 				showlakes: true,
+// 				lakecolor: 'white',
+// 				subunitcolor: 'white'
+// 			},
+// 			sliders: [{
+// 				steps: steps,
+// 				currentvalue: {
+// 					visible: true,
+// 					prefix: 'Year: ',
+// 					xanchor: 'right',
+// 					font: {size: 20, color: '#666'}
+// 				},
+// 				transition: {duration: 300, easing: 'cubic-in-out'}
+// 			}]
+// 		}
+// 	).then(function() {Plotly.addFrames('exampleTwo', frames);});
+// });
