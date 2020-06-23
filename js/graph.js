@@ -1,4 +1,4 @@
-// https://covidtracking.com/api/states/daily.csv
+// https://covidtracking.com/api/v1/states/daily.csv
 // https://github.com/datasets/covid-19/tree/master/data
 // Washington State capita: 7614893
 // New York State capita: 19453561
@@ -7,6 +7,10 @@
 
 Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data) { // (data) => plotState(data));
 	wa = state(data, 'WA');
+	or = state(data, 'OR');
+	id = state(data, 'ID');
+	ak = state(data, 'AK');
+
 	ny = state(data, 'NY');
 
 	Plotly.newPlot(
@@ -17,11 +21,11 @@ Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data
 		],
 		{
 			title:'Washington State and COVID-19',
-			legend:{x:0.02,y:1.05},
+			legend:{x:0.02, y:1.05},
 			xaxis:{title:'Date (month-day)'},
 			yaxis:{title:'Positive Cases'}
 		},
-		{displayModeBar: false}
+		{displayModeBar:false}
 	);
 
 	Plotly.newPlot(
@@ -40,6 +44,23 @@ Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data
 	);
 
 	Plotly.newPlot(
+		'pnw',
+		[
+			{name:'WA', x:wa[0], y:wa[1], line:{color: 'green'}},
+			{name:'OR', x:or[0], y:or[1], line:{color: 'yellow'}},
+			{name:'ID', x:id[0], y:id[1], line:{color: 'orange'}},
+			{name:'AK', x:ak[0], y:ak[1], line:{color: 'blue'}}
+		],
+		{
+			title:'The Pacific Northwest and COVID-19',
+			legend:{x:0.02,y:1.00},
+			xaxis:{title:'Date (month-day)'},
+			yaxis:{title:'Positive Cases'}
+		},
+		{displayModeBar:false}
+	);
+
+	Plotly.newPlot(
 		'waddx',
 		[
 			{name:'WA', x:wa[0], y:wa[7]}
@@ -50,8 +71,9 @@ Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data
 			xaxis:{title:'Date (month-day)'},
 			yaxis:{title:'Rate of Change of Positive Cases'}
 		},
-		{displayModeBar: false}
+		{displayModeBar:false}
 	);
+
 	Plotly.newPlot(
 		'wad2dx2',
 		[
@@ -59,11 +81,11 @@ Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data
 		],
 		{
 			title:'Rate of Change of Rate of Change in Washington State',
-			legend:{x:0.02,y:1.05},
+			legend:{x:0.02, y:1.05},
 			xaxis:{title:'Date (month-day)'},
 			yaxis:{title:'Rate of Change of Rate of Change of Positive Cases'}
 		},
-		{displayModeBar: false}
+		{displayModeBar:false}
 	);
 
 	// var frames = [], steps = [];
@@ -127,6 +149,9 @@ goal:
 
 	for (i = 0; i < wa[1].length; i++) wa[1][i] /= 76148.93; // appropriate capita values
 	for (i = 0; i < ny[1].length; i++) ny[1][i] /= 194535.61;
+	for (i = 0; i < or[1].length; i++) or[1][i] /= 42177.37;
+	for (i = 0; i < id[1].length; i++) id[1][i] /= 17870.65;
+	for (i = 0; i < ak[1].length; i++) ak[1][i] /= 7102.49;
 	Plotly.newPlot(
 		'wanycapita',
 		[
@@ -140,6 +165,23 @@ goal:
 			yaxis:{title:'Positive Cases as a % of Population'}
 		},
 		{displayModeBar: false}
+	);
+
+	Plotly.newPlot(
+		'pnwcapita',
+		[
+			{name:'WA', x:wa[0], y:wa[1], line:{color: 'green'}},
+			{name:'OR', x:or[0], y:or[1], line:{color: 'yellow'}},
+			{name:'ID', x:id[0], y:id[1], line:{color: 'orange'}},
+			{name:'AK', x:ak[0], y:ak[1], line:{color: 'blue'}}
+		],
+		{
+			title:'The Pacific Northwest and COVID-19: Per Capita',
+			legend:{x:0.02,y:1.00},
+			xaxis:{title:'Date (month-day)'},
+			yaxis:{title:'Positive Cases'}
+		},
+		{displayModeBar:false}
 	);
 });
 

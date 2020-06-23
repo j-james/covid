@@ -1,7 +1,7 @@
 .tab {
 	cursor: pointer;
 	padding: 2px 20px;
-	margin: 0px 2px;
+	margin: 4px 2px;
 	display: inline-block;
 	border: 1px solid #000;
 }
@@ -11,7 +11,7 @@
 	width: 100%;
 	max-width: 500px;
 	border-radius: 3px;
-	padding: 20px;  
+	padding: 20px;
 }
 .graph {
 	display: none;
@@ -24,7 +24,8 @@
 #three:checked ~ .graphs #three-graph,
 #four:checked ~ .graphs #four-graph,
 #five:checked ~ .graphs #five-graph,
-#six:checked ~ .graphs #six-graph {
+#six:checked ~ .graphs #six-graph,
+#seven:checked ~ .graphs #seven-graph {
 	display: block
 }
 #one:checked ~ .tabs #one-tab,
@@ -32,7 +33,8 @@
 #three:checked ~ .tabs #three-tab,
 #four:checked ~ .tabs #four-tab,
 #five:checked ~ .tabs #five-tab,
-#six:checked ~ .tabs #six-tab{
+#six:checked ~ .tabs #six-tab,
+#seven:checked ~ .tabs #seven-tab {
 	background: #0069D9;
 	color: #FFF;
 	border: 1px solid #000;
