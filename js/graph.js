@@ -1,8 +1,9 @@
 // https://covidtracking.com/api/states/daily.csv
+// https://github.com/datasets/covid-19/tree/master/data
 // Washington State capita: 7614893
 // New York State capita: 19453561
 //
-// javascript development is a joke
+// wow i really do not like javascript
 
 Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data) { // (data) => plotState(data));
 	wa = state(data, 'WA');
@@ -26,14 +27,41 @@ Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data
 	Plotly.newPlot(
 		'wany',
 		[
-			{name:'WA', x: wa[0], y: wa[1], line: {color: 'green'}},
-			{name:'NY', x: wa[0], y: ny[1], line: {color: 'blue'}}
+			{name:'WA', x:wa[0], y:wa[1], line:{color: 'green'}},
+			{name:'NY', x:wa[0], y:ny[1], line:{color: 'blue'}}
 		],
 		{
 			title:'WA vs NY: Positive Cases',
 			legend:{x:0.02,y:1.00},
 			xaxis:{title:'Date (month-day)'},
 			yaxis:{title:'Positive Cases'}
+		},
+		{displayModeBar: false}
+	);
+
+	Plotly.newPlot(
+		'waddx',
+		[
+			{name:'WA', x:wa[0], y:wa[7]}
+		],
+		{
+			title:'Rate of Change in Washington State',
+			legend:{x:0.02,y:1.05},
+			xaxis:{title:'Date (month-day)'},
+			yaxis:{title:'Rate of Change of Positive Cases'}
+		},
+		{displayModeBar: false}
+	);
+	Plotly.newPlot(
+		'wad2dx2',
+		[
+			{name:'WA', x:wa[0], y:wa[8]}
+		],
+		{
+			title:'Rate of Change of Rate of Change in Washington State',
+			legend:{x:0.02,y:1.05},
+			xaxis:{title:'Date (month-day)'},
+			yaxis:{title:'Rate of Change of Rate of Change of Positive Cases'}
 		},
 		{displayModeBar: false}
 	);
@@ -97,7 +125,7 @@ goal:
 	// 	}
 	// ).then(function() {Plotly.addFrames('usa', frames);});
 
-	for (i = 0; i < wa[1].length; i++) wa[1][i] /= 76148.93;
+	for (i = 0; i < wa[1].length; i++) wa[1][i] /= 76148.93; // appropriate capita values
 	for (i = 0; i < ny[1].length; i++) ny[1][i] /= 194535.61;
 	Plotly.newPlot(
 		'wanycapita',
@@ -119,6 +147,7 @@ function state(data, state) {
 	var date = [];
 	var pos = [], neg = [], dead = [];
 	var hos = [], icu = [], rec = [];
+	var ddx = [], d2dx2 = []; // haha
 
 	for (i = 0; i < data.length; i++) {
 		row = data[i];
@@ -135,7 +164,15 @@ function state(data, state) {
 			rec.push(row['recovered']);
 		}
 	}
-	total = [date, pos, neg, dead, hos, icu, rec];
+	for (i = 0; i < pos.length-1; i++) {
+		ddx.push(pos[i] - pos[i+1]);
+	}
+	ddx.push(pos[pos.length-1]);
+	for (i = 0; i < ddx.length-1; i++) {
+		d2dx2.push(ddx[i] - ddx[i+i]); // FIXME?
+	}
+	d2dx2.push(ddx[ddx.length-1]);
+	total = [date, pos, neg, dead, hos, icu, rec, ddx, d2dx2];
 	return total;
 }
 
@@ -232,4 +269,3 @@ Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminde
 	).then(function() {Plotly.addFrames('exampleTwo', frames);});
 });
 */
-
