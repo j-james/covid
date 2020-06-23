@@ -1,3 +1,4 @@
+/* Style individual tabs */
 .tab {
 	cursor: pointer;
 	padding: 2px 20px;
@@ -5,6 +6,9 @@
 	display: inline-block;
 	border: 1px solid #000;
 }
+
+/* These size restrictions don't actually work,
+ * thanks to plot.ly using inline styling */
 .graphs {
 	background: #FFF;
 	min-height: 200px;
@@ -13,29 +17,48 @@
 	border-radius: 3px;
 	padding: 20px;
 }
-.graph {
+
+/* Hides all graphs (and the radio element) */
+.graph, .radio {
 	display: none;
 }
-.radio {
-	display: none;
-}
+
+/* Matches and reveals only the active graph */
 #one:checked ~ .graphs #one-graph,
 #two:checked ~ .graphs #two-graph,
 #three:checked ~ .graphs #three-graph,
 #four:checked ~ .graphs #four-graph,
 #five:checked ~ .graphs #five-graph,
 #six:checked ~ .graphs #six-graph,
-#seven:checked ~ .graphs #seven-graph {
+#seven:checked ~ .graphs #seven-graph,
+#eight:checked ~ .graphs #eight-graph,
+#nine:checked ~ .graphs #nine-graph,
+#ten:checked ~ .graphs #ten-graph,
+#eleven:checked ~ .graphs #eleven-graph,
+#twelve:checked ~ .graphs #twelve-graph,
+#thirteen:checked ~ .graphs #thirteen-graph,
+#fourteen:checked ~ .graphs #fourteen-graph,
+#fifteen:checked ~ .graphs #fifteen-graph {
 	display: block
 }
+
+/* Matches and changes color on only the active tab */
 #one:checked ~ .tabs #one-tab,
 #two:checked ~ .tabs #two-tab,
 #three:checked ~ .tabs #three-tab,
 #four:checked ~ .tabs #four-tab,
 #five:checked ~ .tabs #five-tab,
 #six:checked ~ .tabs #six-tab,
-#seven:checked ~ .tabs #seven-tab {
+#six:checked ~ .tabs #six-tab,
+#seven:checked ~ .tabs #seven-tab,
+#eight:checked ~ .tabs #eight-tab,
+#nine:checked ~ .tabs #nine-tab,
+#ten:checked ~ .tabs #ten-tab,
+#eleven:checked ~ .tabs #eleven-tab,
+#twelve:checked ~ .tabs #twelve-tab,
+#thirteen:checked ~ .tabs #thirteen-tab,
+#fourteen:checked ~ .tabs #fourteen-tab,
+#fifteen:checked ~ .tabs #fifteen-tab {
 	background: #0069D9;
 	color: #FFF;
-	border: 1px solid #000;
 }
