@@ -10,7 +10,7 @@ Plotly.d3.csv('https://covidtracking.com/api/v1/states/daily.csv', function(data
 	or = state(data, 'OR');
 	id = state(data, 'ID');
 	ak = state(data, 'AK');
-
+	ca = state(data, 'CA');
 	ny = state(data, 'NY');
 
 	Plotly.newPlot(
@@ -148,10 +148,11 @@ goal:
 	// ).then(function() {Plotly.addFrames('usa', frames);});
 
 	for (i = 0; i < wa[1].length; i++) wa[1][i] /= 76148.93; // appropriate capita values
-	for (i = 0; i < ny[1].length; i++) ny[1][i] /= 194535.61;
 	for (i = 0; i < or[1].length; i++) or[1][i] /= 42177.37;
 	for (i = 0; i < id[1].length; i++) id[1][i] /= 17870.65;
 	for (i = 0; i < ak[1].length; i++) ak[1][i] /= 7102.49;
+	for (i = 0; i < ca[1].length; i++) ca[1][i] /= 395122.23;
+	for (i = 0; i < ny[1].length; i++) ny[1][i] /= 194535.61;
 	Plotly.newPlot(
 		'wanycapita',
 		[
@@ -173,7 +174,8 @@ goal:
 			{name:'WA', x:wa[0], y:wa[1], line:{color: 'green'}},
 			{name:'OR', x:or[0], y:or[1], line:{color: 'yellow'}},
 			{name:'ID', x:id[0], y:id[1], line:{color: 'orange'}},
-			{name:'AK', x:ak[0], y:ak[1], line:{color: 'blue'}}
+			{name:'AK', x:ak[0], y:ak[1], line:{color: 'blue'}},
+			{name:'CA', x:ca[0], y:ca[1], line:{color: 'red'}}
 		],
 		{
 			title:'The Pacific Northwest and COVID-19: Per Capita',
