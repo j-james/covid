@@ -179,7 +179,7 @@ goal:
 			title:'The Pacific Northwest and COVID-19: Per Capita',
 			legend:{x:0.02,y:1.00},
 			xaxis:{title:'Date (month-day)'},
-			yaxis:{title:'Positive Cases'}
+			yaxis:{title:'Positive Cases as a % of Population'}
 		},
 		{displayModeBar:false}
 	);
