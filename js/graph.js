@@ -1,7 +1,5 @@
+// This file contains functions set up for covidtracking.com
 // https://covidtracking.com/api/v1/states/daily.csv
-// https://github.com/datasets/covid-19/tree/master/data
-// Washington State capita: 7614893
-// New York State capita: 19453561
 //
 // wow i really do not like javascript
 
@@ -209,13 +207,13 @@ function state(data, state) {
 		}
 	}
 	for (i = 0; i < pos.length-1; i++) {
-		ddx.push(pos[i] - pos[i+1]);
+		ddx.push(pos[i] - pos[i+1]); // This dataset starts with the most recent values
 	}
-	ddx.push(pos[pos.length-1]);
+	ddx.push(0);
 	for (i = 0; i < ddx.length-1; i++) {
-		d2dx2.push(ddx[i] - ddx[i+i]); // FIXME?
+		d2dx2.push(ddx[i] - ddx[i+1]);
 	}
-	d2dx2.push(ddx[ddx.length-1]);
+	d2dx2.push(0);
 	total = [date, pos, neg, dead, hos, icu, rec, ddx, d2dx2];
 	return total;
 }
