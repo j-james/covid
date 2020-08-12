@@ -207,7 +207,7 @@ function state(data, state) {
 		}
 	}
 	for (i = 0; i < pos.length-1; i++) {
-		if (pos[i] - pos[i+1]) > 0
+		if ((pos[i] - pos[i+1]) > 0)
 			ddx.push(pos[i] - pos[i+1]); // This dataset starts with the most recent values
 		else
 			ddx.push(ddx[ddx.length - 1]);
